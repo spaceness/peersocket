@@ -1,0 +1,22 @@
+{
+  "name": "peersocket-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node example.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "@cmdcode/nostr-emitter": "^2.0.9",
+    "node-datachannel": "^0.23.0",
+    "simple-peer": "^9.11.1"
+  },
+  "devDependencies": {
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.15"
+  }
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://bundle.run/noble-secp256k1@1.2.14'></script>
+    <title>Peersocket Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Raleway');
+        @import url('https://fonts.googleapis.com/css?family=Roboto%20Mono&display=swap');
+
+        #raw {
+            margin: 0;
+            padding: 1em;
+            font-family: 'Roboto Mono', monospace;
+            border: 1px solid rgb(180, 180, 180);
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Peersocket Demo</h1>
+    <pre id="raw"></pre>
+    <script type="module">
+        document.getElementById('raw').innerText += 'Connecting...\n';
+        import { Peersocket } from './dist/peersocket-client-nostr.min.js';
+
+        const peersocket = new Peersocket("wss://nostr.grooveix.com/some-room-id");
+        peersocket.binaryType = "arraybuffer";
+
+        peersocket.addEventListener('open', () => {
+            document.getElementById('raw').innerText += 'Connected to server\n';
+        });
+
+        peersocket.addEventListener('message', (event) => {
+            const data = new TextDecoder().decode(event.data);
+            document.getElementById('raw').innerText += `Server: ${data}\n`;
+        });
+
+        peersocket.addEventListener('close', () => {
+            document.getElementById('raw').innerText += 'Disconnected from server\n';
+        });
+
+        setInterval(() => {
+            peersocket.send('Hello from client');
+        }, 1000);
+    </script>
+</body>
+
+</html>
