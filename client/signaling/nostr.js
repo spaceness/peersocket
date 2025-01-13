@@ -13,7 +13,7 @@ export class PSSignalNostr {
 
     async getOffer() {
         try {
-            await this.emitter.connect(this.url.origin, this.url.pathname.split('/').pop());
+            await this.emitter.connect(this.url.origin + this.url.pathname.split("/").slice(0,-1).join('/'), this.url.pathname.split('/').pop());
             // create a random 9 digit request ID
             const reqID = Math.floor(Math.random() * 1000000000)
             this.emitter.publish('requestOffer', reqID);
